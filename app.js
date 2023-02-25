@@ -1,7 +1,7 @@
 const express = require('express');
 const { urlencoded } = require('body-parser');
 const logger = require('morgan');
-
+const cors = require('cors')
 const bodyParser = require('body-parser');
 const routerNav = require('./src/index');
 
@@ -18,6 +18,7 @@ app.listen(APP_PORT, () => {
   console.log(`Server listening on ${APP_PORT}`);
 });
 
+app.use(cors());
 app.use(logger('combined'));
 app.use(urlencoded({ limit: '5mb', extended: true, parameterLimit: 5000 }));
 app.use(bodyParser.json({ limit: '5mb', extended: true }));

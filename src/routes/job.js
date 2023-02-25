@@ -12,5 +12,12 @@ router.get(
   validator.getData(),
   validator.validation,
   jobController.getDataJob,
+).get(
+  '/detail/:id',
+  userAccess,
+  authenticateToken,
+  validator.getDetail(),
+  validator.validation,
+  jobController.getJobDetail,
 );
 module.exports = router;

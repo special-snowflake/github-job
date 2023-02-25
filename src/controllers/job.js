@@ -10,14 +10,25 @@ const getDataJob = async (req, res) => {
       location,
       page,
     );
-    // console.log(response);
-    return resHelper.response(res, 'Jobs.', 200, response);
+    return resHelper.response(res, 'Jobs List.', 200, response);
   } catch (error) {
     console.log(error);
-    return resHelper.response(res, error.message, 400);
+    return resHelper.response(res, error.message, 400, [], [], 'failed');
+  }
+};
+
+const getJobDetail = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const response = await jobService.getJobDetail(id);
+    return resHelper.response(res, 'Jobs Details.', 200, response);
+  } catch (error) {
+    console.log(error);
+    return resHelper.response(res, error.message, 400, [], [], 'failed');
   }
 };
 
 module.exports = {
   getDataJob,
+  getJobDetail,
 };

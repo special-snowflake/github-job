@@ -1,5 +1,6 @@
 const axios = require('axios');
 const CustomErrors = require('../exceptions/exceptions');
+require('dotenv').config();
 
 const getDataJob = async (
   search = '',
@@ -8,8 +9,8 @@ const getDataJob = async (
   page = '1',
 ) => {
   try {
+    const url = process.env.URL_DATA + '.json';
     const totalData = 18;
-    const url = 'http://dev3.dansmultipro.co.id/api/recruitment/positions.json';
     const full_time = fulltime === 'true' ? true : undefined;
     const queryParams = {
       description: search,
@@ -21,9 +22,9 @@ const getDataJob = async (
     const params = {
       description: search,
       page,
+      location,
       full_time: fulltime === 'true',
     };
-    console.log(url);
     let data;
     await axios
       .get(url, { params })
@@ -43,4 +44,26 @@ const getDataJob = async (
   }
 };
 
-module.exports = { getDataJob };
+const getJobDetail = async (id) => {
+  try {
+    let url = process.env.URL_DATA + `/${id}`;
+    let data;
+    await axios
+      .get(url)
+      .then((response) => {
+        const tmpData = response.data;
+        if (JSON.stringify(tmpData) === '{}')
+          throw new CustomErrors('Invalid Id.');
+        data = tmpData;
+      })
+      .catch((error) => {
+        throw new Error(error);
+      });
+    return data;
+  } catch (err) {
+    console.log(err);
+    throw new CustomErrors(err.message);
+  }
+};
+
+module.exports = { getDataJob, getJobDetail };

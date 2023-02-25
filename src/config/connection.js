@@ -2,14 +2,6 @@ const mysql = require('mysql');
 const { promisify } = require('util');
 
 require('dotenv').config();
-console.log(
-  process.env.DB_POOL_SIZE,
-  process.env.DB_HOST,
-  process.env.DB_PORT,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  process.env.DB_NAME,
-);
 const pool = mysql.createPool({
   connectionLimit: process.env.DB_POOL_SIZE || 10,
   host: process.env.DB_HOST,

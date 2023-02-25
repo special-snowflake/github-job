@@ -6,7 +6,7 @@ const access = (req, res, next) => {
   const { KEY } = process.env;
   const { api_key } = req.headers;
   if (api_key === undefined || api_key !== KEY) {
-    return resHelper.response(res, 'Invalid Key.', 401);
+    return resHelper.response(res, 'Invalid Key.', 401, [], [], 'failed');
   }
 
   return next();

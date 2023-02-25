@@ -39,9 +39,12 @@ const getData = () => [
     .withMessage('fulltime only accept falue true or false'),
 ];
 
+const getDetail = () => [param('id').notEmpty().withMessage('id is required')];
+
 module.exports = {
   validation,
   ruleLogin,
   ruleRegister,
-  getData
+  getData,
+  getDetail,
 };

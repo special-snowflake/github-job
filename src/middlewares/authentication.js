@@ -10,6 +10,9 @@ const authenticateToken = (req, res, next) => {
       res,
       'Authentication failed: Missing token.',
       401,
+      [],
+      [],
+      'failed',
     );
   }
 
@@ -19,6 +22,9 @@ const authenticateToken = (req, res, next) => {
         res,
         'Authentication failed: Invalid token.',
         401,
+        [],
+        [],
+        'failed',
       );
     }
     req.user = decodedToken;

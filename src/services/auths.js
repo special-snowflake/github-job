@@ -30,9 +30,6 @@ const login = async (body) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: '1d',
     });
-
-    console.log(token);
-
     return { token };
   } catch (err) {
     console.log(err);
@@ -54,11 +51,9 @@ const register = async (body) => {
         username,
         password: hash,
       };
-      console.log(data);
       const addUsers = await authModels.addUsers(data);
       if (addUsers.affectedRows !== 1)
         throw new CustomErrors('Failed to Register.');
-      console.log(addUsers);
     });
   } catch (err) {
     console.log(err);
